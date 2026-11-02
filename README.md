@@ -1,2 +1,41 @@
 # CyberRun
-CyberRun – 3D Endless Runner Game  CyberRun is a futuristic 3D endless runner game where players navigate through a digital cyber-world, dodge obstacles, collect energy coins, and challenge themselves to achieve the highest possible score.  Featuring smooth player movement, immersive visuals, dynamic obstacles, and an engaging gameplay experience, CyberRun brings simplicity and entertainment together.  Created by: Archimedes Cheruiyot   Development: AI-assisted  Project Type: 3D Browser Game  Technologies: HTML, CSS, JavaScript, and Three.js (or another suitable lightweight 3D engine).  Run. Dodge. Collect. Survive. Welcome to CyberRun.
+
+CyberRun is a lightweight, browser-based 3D endless runner. Switch lanes, leap over neon barriers, slide beneath overhead beams, and collect energy while the city speeds up around you.
+
+## Play
+
+Open `index.html` with VS Code Live Server, then select **START RUN**. Three.js is loaded from jsDelivr, so an internet connection is required to load the 3D engine and display fonts.
+
+### Controls
+
+- **Move:** Left/Right arrows or **A / D**
+- **Jump:** Up arrow, **W**, or **Space**
+- **Slide:** Down arrow or **S**
+- **Pause / resume:** **Esc** or the pause button
+- **Mobile:** Use the on-screen controls, swipe left/right to change lanes, swipe up to jump, or swipe down to slide. Tap the play area to jump.
+
+Sound is generated with the Web Audio API and starts only after interaction. Use the sound button to turn it on or off. Your best distance is saved in this browser.
+
+## Project structure
+
+```text
+CyberRun/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   ├── main.js
+│   ├── game.js
+│   ├── player.js
+│   ├── obstacles.js
+│   └── collectibles.js
+└── README.md
+```
+
+The character, track, city, hazards, collectibles, and sound effects are generated procedurally; no model or audio downloads are needed.
+
+## About
+
+- Created by: Archimedes Cheruiyot
+- Development: AI-assisted
+- Project: CyberRun – 3D Endless Runner

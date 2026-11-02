@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#070914">
+    <meta name="description" content="Run the neon lanes, dodge the hazards, and collect energy in CyberRun.">
+    <title>CyberRun — Neon Rush</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <main class="game-shell">
+      <div id="game-stage" class="game-stage" aria-label="CyberRun game">
+        <div class="stage-vignette" aria-hidden="true"></div>
+        <header class="topbar">
+          <a class="brand" href="#" aria-label="CyberRun home">
+            <span class="brand-mark" aria-hidden="true">C</span>
+            <span>CYBER<span class="brand-accent">RUN</span></span>
+          </a>
+          <div class="hud" aria-live="polite">
+            <div class="hud-stat">
+              <span class="hud-label">DISTANCE</span>
+              <strong id="score-value">000000</strong>
+            </div>
+            <div class="hud-stat coin-stat">
+              <span class="hud-label">ENERGY</span>
+              <strong><span class="coin-glyph" aria-hidden="true">◈</span><span id="coin-value">0</span></strong>
+            </div>
+            <div class="hud-stat best-stat">
+              <span class="hud-label">PERSONAL BEST</span>
+              <strong id="best-value">000000</strong>
+            </div>
+          </div>
+          <div class="utility-actions">
+            <button id="sound-button" class="icon-button" type="button" aria-label="Turn sound on" title="Turn sound on">♫<span class="button-state">OFF</span></button>
+            <button id="pause-button" class="icon-button" type="button" aria-label="Pause game" title="Pause game" disabled>Ⅱ<span class="button-state">PAUSE</span></button>
+          </div>
+        </header>
+
+        <div id="canvas-host" class="canvas-host"></div>
+
+        <section id="start-screen" class="screen-panel start-panel" aria-labelledby="game-title">
+          <div class="eyebrow"><span class="status-dot"></span> NEON DISTRICT // ENDLESS RUN</div>
+          <h1 id="game-title">CYBER<span>RUN</span></h1>
+          <p class="hero-copy">The city never sleeps.<br>How long can you stay ahead?</p>
+          <button id="start-button" class="primary-button" type="button"><span>START RUN</span><span aria-hidden="true">↗</span></button>
+          <p class="start-hint">NO DOWNLOADS. NO LEVELS. JUST RUN.</p>
+        </section>
+
+        <section id="pause-screen" class="screen-panel compact-panel is-hidden" aria-labelledby="pause-title">
+          <div class="eyebrow"><span class="status-dot"></span> RUN ON HOLD</div>
+          <h2 id="pause-title">PAUSED<span class="title-period">.</span></h2>
+          <p class="hero-copy">Catch your breath. The city will wait.</p>
+          <button id="resume-button" class="primary-button" type="button"><span>RESUME RUN</span><span aria-hidden="true">↗</span></button>
+        </section>
+
+        <section id="gameover-screen" class="screen-panel compact-panel is-hidden" aria-labelledby="gameover-title">
+          <div class="eyebrow"><span class="status-dot danger-dot"></span> SIGNAL LOST // RUN ENDED</div>
+          <h2 id="gameover-title">GAME OVER<span class="title-period">.</span></h2>
+          <p class="hero-copy">Distance <strong id="final-score">0</strong><span class="result-divider">/</span> Energy <strong id="final-coins">0</strong></p>
+          <button id="restart-button" class="primary-button" type="button"><span>RUN IT BACK</span><span aria-hidden="true">↗</span></button>
+          <p id="new-record" class="record-message is-hidden">✦ NEW PERSONAL BEST ✦</p>
+        </section>
+
+        <div class="bottom-bar">
+          <div class="control-hint desktop-hint" aria-label="Keyboard controls">
+            <span><kbd>←</kbd><kbd>→</kbd> MOVE</span>
+            <span><kbd>↑</kbd> JUMP</span>
+            <span><kbd>↓</kbd> SLIDE</span>
+            <span><kbd>ESC</kbd> PAUSE</span>
+          </div>
+          <div class="control-hint mobile-hint">SWIPE TO MOVE <span>·</span> TAP TO JUMP</div>
+          <div class="best-chip"><span>BEST</span><strong id="best-value-bottom">000000</strong></div>
+        </div>
+
+        <div id="touch-controls" class="touch-controls" aria-label="Touch controls">
+          <button type="button" data-action="left" aria-label="Move left">‹</button>
+          <button type="button" data-action="slide" aria-label="Slide">↓</button>
+          <button type="button" data-action="jump" aria-label="Jump">↑</button>
+          <button type="button" data-action="right" aria-label="Move right">›</button>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <footer class="info-footer">
+        <section class="instructions">
+          <div class="footer-heading">HOW TO RUN <span>///</span></div>
+          <p><strong>SHIFT</strong> between three lanes. <strong>JUMP</strong> the light barriers. <strong>SLIDE</strong> under the beams. Grab energy, dodge everything, and see how far you get.</p>
+          <p class="desktop-instructions">Arrow keys or <strong>A / D</strong> to move · <strong>W / ↑ / Space</strong> to jump · <strong>S / ↓</strong> to slide · <strong>Esc</strong> to pause.</p>
+          <p class="mobile-instructions">Use the on-screen arrows, swipe left/right to change lanes and up/down to jump or slide, or tap to jump. Sound begins after you start.</p>
+        </section>
+        <section class="about">
+          <div class="footer-heading">ABOUT <span>///</span></div>
+          <p>Created by: Archimedes Cheruiyot<br>Development: AI-assisted<br>Project: CyberRun – 3D Endless Runner</p>
+        </section>
+      </footer>
+    </main>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
