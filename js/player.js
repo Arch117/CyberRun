@@ -69,11 +69,14 @@ export class Player {
   }
 
   jump() {
-    if (this.jumpTime <= 0 && this.slideTime <= 0) this.jumpTime = 0.82;
+    if (this.jumpTime <= 0 && this.slideTime <= 0.25) {
+      this.slideTime = 0;
+      this.jumpTime = 0.82;
+    }
   }
 
   slide() {
-    if (this.slideTime <= 0 && this.jumpTime <= 0) this.slideTime = 0.76;
+    if (this.slideTime <= 0 && this.jumpTime <= 0) this.slideTime = 0.65;
   }
 
   update(delta, elapsed) {
@@ -87,7 +90,7 @@ export class Player {
     const jumpProgress = jumping ? 1 - this.jumpTime / 0.82 : 1;
     this.group.position.y = 0.08 + (jumping ? Math.sin(jumpProgress * Math.PI) * 1.7 : 0);
     const sliding = this.slideTime > 0;
-    this.group.scale.y += ((sliding ? 0.48 : 1) - this.group.scale.y) * Math.min(1, delta * 18);
+    this.group.scale.y += ((sliding ? 0.48 : 1) - this.group.scale.y) * Math.min(1, delta * 30);
     this.group.rotation.z += ((this.lane === 1 ? 0 : (this.lane < 1 ? 0.1 : -0.1)) - this.group.rotation.z) * Math.min(1, delta * 8);
     const stride = Math.sin(this.runTime) * (sliding ? 0.12 : 0.72);
     this.leftLeg.rotation.x = stride;

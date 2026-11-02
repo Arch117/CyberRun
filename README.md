@@ -14,7 +14,7 @@ Open `index.html` with VS Code Live Server, then select **START RUN**. Three.js 
 - **Pause / resume:** **Esc** or the pause button
 - **Mobile:** Use the on-screen controls, swipe left/right to change lanes, swipe up to jump, or swipe down to slide. Tap the play area to jump.
 
-Sound is generated with the Web Audio API and starts only after interaction. Use the sound button to turn it on or off. Your best distance is saved in this browser.
+Sound is generated with the Web Audio API and starts when you select **START RUN** (browser audio requires a user gesture). Sound is on by default; use the sound button to mute or unmute it. Brief alerts let you know when the run speeds up. Your best distance is saved in this browser.
 
 ## Project structure
 

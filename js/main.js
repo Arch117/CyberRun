@@ -27,7 +27,7 @@ let toastTimeout;
 function createAudioController() {
   let context;
   let master;
-  let enabled = false;
+  let enabled = true;
   let musicNodes = [];
 
   function start() {
@@ -126,6 +126,7 @@ game = new CyberRunGame($("#canvas-host"), {
   onHud: updateHud,
   onSound: (kind) => audio.play(kind),
   onCoin: () => showToast("ENERGY +1"),
+  onSpeedUp: () => showToast("SPEED UP · GET READY"),
   onCollision: ({ score, coins, isNewBest }) => {
     elements.finalScore.textContent = formatScore(score);
     elements.finalCoins.textContent = String(coins);
@@ -151,7 +152,7 @@ elements.soundButton.addEventListener("click", () => {
   elements.soundButton.querySelector(".button-state").textContent = enabled ? "ON" : "OFF";
   elements.soundButton.setAttribute("aria-label", `Turn sound ${enabled ? "off" : "on"}`);
   elements.soundButton.title = `Turn sound ${enabled ? "off" : "on"}`;
-  if (enabled) showToast("SOUND ON");
+  showToast(enabled ? "SOUND ON" : "SOUND OFF");
 });
 
 window.addEventListener("keydown", (event) => {

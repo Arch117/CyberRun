@@ -14,6 +14,7 @@ export class CyberRunGame {
     this.score = 0;
     this.coins = 0;
     this.speed = 16;
+    this.nextSpeedMilestone = 18;
     this.elapsed = 0;
     this.spawnTimer = 0;
     this.worldOffset = 0;
@@ -153,6 +154,7 @@ export class CyberRunGame {
     this.score = 0;
     this.coins = 0;
     this.speed = 16;
+    this.nextSpeedMilestone = 18;
     this.elapsed = 0;
     this.spawnTimer = 0.55;
     this.player.lane = 1;
@@ -202,7 +204,7 @@ export class CyberRunGame {
   }
 
   jump() {
-    if (this.state === "running" && this.player.jumpTime <= 0 && this.player.slideTime <= 0) {
+    if (this.state === "running" && this.player.jumpTime <= 0 && this.player.slideTime <= 0.25) {
       this.player.jump();
       this.callbacks.onSound("jump");
     }
@@ -254,6 +256,10 @@ export class CyberRunGame {
     if (this.state === "running") {
       this.elapsed += delta;
       this.speed = Math.min(31, 16 + this.elapsed * 0.22);
+      if (this.speed >= this.nextSpeedMilestone) {
+        this.callbacks.onSpeedUp();
+        this.nextSpeedMilestone += 3;
+      }
       this.score += this.speed * delta;
       this.spawnTimer -= delta;
       if (this.spawnTimer <= 0) {

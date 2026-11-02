@@ -97,13 +97,13 @@ h2 { font-size: clamp(30px, 5vw, 43px); letter-spacing: -.06em; }
 .hero-copy { margin: 10px 0 24px; color: #b7bfd8; font-size: 19px; line-height: 1.35; }
 .hero-copy strong { color: var(--cyan); }
 .primary-button {
-  display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 54px;
+  position: relative; display: flex; justify-content: center; align-items: center; width: 100%; min-height: 54px;
   padding: 0 19px; border: 1px solid #74f7ff; border-radius: 4px; background: linear-gradient(100deg, #1ed7e7, #6794ff);
   color: #06121e; cursor: pointer; font: 800 12px "Orbitron", sans-serif; letter-spacing: .1em;
   box-shadow: 0 0 26px rgba(58, 217, 255, .25); transition: transform .18s, filter .18s, box-shadow .18s;
 }
 .primary-button:hover { transform: translateY(-2px); filter: brightness(1.13); box-shadow: 0 0 34px rgba(58, 217, 255, .42); }
-.primary-button span:last-child { font-size: 19px; }
+.primary-button span:last-child { position: absolute; right: 19px; font-size: 19px; }
 .start-hint { margin: 17px 0 0; color: #7983a5; font: 600 8px "Orbitron", sans-serif; letter-spacing: .16em; }
 .compact-panel { width: min(390px, calc(100% - 34px)); padding: 32px; }
 .compact-panel .hero-copy { font-size: 17px; }
