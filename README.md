@@ -12,7 +12,7 @@ Open `index.html` with VS Code Live Server, then select **START RUN**. Three.js 
 - **Jump:** Up arrow, **W**, or **Space**
 - **Slide:** Down arrow or **S**
 - **Pause / resume:** **Esc** or the pause button
-- **Mobile:** Use the on-screen controls, swipe left/right to change lanes, swipe up to jump, or swipe down to slide. Tap the play area to jump.
+- **Mobile:** Swipe left/right to change lanes, swipe up to jump, swipe down to slide, or tap the play area to jump. The run opens in fullscreen when supported; tap **GAME INFO** for controls and project details. Opening the guide pauses the run.
 
 Sound is generated with the Web Audio API and starts when you select **START RUN** (browser audio requires a user gesture). Sound is on by default; use the sound button to mute or unmute it. Brief alerts let you know when the run speeds up. Your best distance is saved in this browser.
 

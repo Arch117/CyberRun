@@ -17,12 +17,19 @@ const elements = {
   restartButton: $("#restart-button"),
   pauseButton: $("#pause-button"),
   soundButton: $("#sound-button"),
-  toast: $("#toast")
+  toast: $("#toast"),
+  stage: $("#game-stage"),
+  infoButton: $("#info-button"),
+  infoOverlay: $("#game-info"),
+  closeInfoButton: $("#close-info-button"),
+  fullscreenToggle: $("#fullscreen-toggle")
 };
 
 const audio = createAudioController();
 let game;
 let toastTimeout;
+let resumeAfterInfo = false;
+let nativeFullscreen = false;
 
 function createAudioController() {
   let context;
@@ -138,6 +145,47 @@ updateHud({ score: 0, coins: 0, best: game.best });
 function startGame() {
   audio.start();
   game.start();
+  enterMobileFullscreen();
+}
+
+function isMobileLayout() {
+  return window.matchMedia("(max-width: 760px), (pointer: coarse) and (max-height: 550px)").matches;
+}
+
+function setMobileFullscreen(active) {
+  elements.stage.classList.toggle("mobile-fullscreen", active);
+  document.body.classList.toggle("mobile-run-active", active);
+  elements.fullscreenToggle.textContent = active ? "EXIT FULL SCREEN" : "ENTER FULL SCREEN";
+  if (!active && document.fullscreenElement === elements.stage) {
+    nativeFullscreen = false;
+    document.exitFullscreen?.();
+  }
+}
+
+function enterMobileFullscreen() {
+  if (!isMobileLayout()) return;
+  setMobileFullscreen(true);
+  if (!elements.stage.requestFullscreen) return;
+  elements.stage.requestFullscreen().then(() => {
+    nativeFullscreen = document.fullscreenElement === elements.stage;
+  }).catch(() => {
+    showToast("FULLSCREEN LIMITED BY BROWSER");
+  });
+}
+
+function openGameInfo() {
+  resumeAfterInfo = game.state === "running";
+  if (resumeAfterInfo) game.pause();
+  elements.infoOverlay.classList.remove("is-hidden");
+  elements.closeInfoButton.focus();
+}
+
+function closeGameInfo() {
+  if (elements.infoOverlay.classList.contains("is-hidden")) return;
+  elements.infoOverlay.classList.add("is-hidden");
+  if (resumeAfterInfo && game.state === "paused") game.resume();
+  resumeAfterInfo = false;
+  elements.infoButton.focus();
 }
 
 elements.startButton.addEventListener("click", startGame);
@@ -154,11 +202,36 @@ elements.soundButton.addEventListener("click", () => {
   elements.soundButton.title = `Turn sound ${enabled ? "off" : "on"}`;
   showToast(enabled ? "SOUND ON" : "SOUND OFF");
 });
+elements.infoButton.addEventListener("click", openGameInfo);
+elements.closeInfoButton.addEventListener("click", closeGameInfo);
+elements.infoOverlay.addEventListener("click", (event) => {
+  if (event.target === elements.infoOverlay) closeGameInfo();
+});
+elements.fullscreenToggle.addEventListener("click", () => {
+  const isFullscreen = elements.stage.classList.contains("mobile-fullscreen");
+  if (!isFullscreen) enterMobileFullscreen();
+  else setMobileFullscreen(false);
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (document.fullscreenElement === elements.stage) {
+    nativeFullscreen = true;
+    return;
+  }
+  if (nativeFullscreen) {
+    nativeFullscreen = false;
+    setMobileFullscreen(false);
+  }
+});
 
 window.addEventListener("keydown", (event) => {
   const key = event.key.toLowerCase();
   if (["arrowleft", "arrowright", "arrowup", "arrowdown", " "].includes(key)) event.preventDefault();
   if (key === "escape") {
+    if (!elements.infoOverlay.classList.contains("is-hidden")) {
+      closeGameInfo();
+      return;
+    }
     if (game.state === "running") game.pause();
     else if (game.state === "paused") game.resume();
     return;
@@ -169,25 +242,17 @@ window.addEventListener("keydown", (event) => {
   else if (key === "arrowdown" || key === "s") game.slide();
 });
 
-for (const button of document.querySelectorAll("[data-action]")) {
-  button.addEventListener("pointerdown", (event) => {
-    event.preventDefault();
-    const action = button.dataset.action;
-    if (action === "left") game.move(-1);
-    else if (action === "right") game.move(1);
-    else if (action === "jump") game.jump();
-    else if (action === "slide") game.slide();
-  });
-}
-
 let touchStart = null;
 $("#game-stage").addEventListener("touchstart", (event) => {
-  if (event.target.closest("button")) return;
+  if (game.state !== "running" || !elements.infoOverlay.classList.contains("is-hidden") || event.target.closest("button, .info-dialog")) return;
   const touch = event.changedTouches[0];
   touchStart = { x: touch.clientX, y: touch.clientY };
 }, { passive: true });
 $("#game-stage").addEventListener("touchend", (event) => {
-  if (!touchStart) return;
+  if (!touchStart || game.state !== "running" || !elements.infoOverlay.classList.contains("is-hidden")) {
+    touchStart = null;
+    return;
+  }
   const touch = event.changedTouches[0];
   const dx = touch.clientX - touchStart.x;
   const dy = touch.clientY - touchStart.y;

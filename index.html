@@ -76,12 +76,30 @@
           <div class="best-chip"><span>BEST</span><strong id="best-value-bottom">000000</strong></div>
         </div>
 
-        <div id="touch-controls" class="touch-controls" aria-label="Touch controls">
-          <button type="button" data-action="left" aria-label="Move left">‹</button>
-          <button type="button" data-action="slide" aria-label="Slide">↓</button>
-          <button type="button" data-action="jump" aria-label="Jump">↑</button>
-          <button type="button" data-action="right" aria-label="Move right">›</button>
-        </div>
+        <button id="info-button" class="info-button" type="button" aria-haspopup="dialog" aria-controls="game-info">ⓘ <span>GAME INFO</span></button>
+        <section id="game-info" class="info-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="info-title">
+          <div class="info-dialog">
+            <header class="info-dialog-header">
+              <div>
+                <div class="eyebrow"><span class="status-dot"></span> CYBERRUN // FIELD GUIDE</div>
+                <h2 id="info-title">GAME INFO<span class="title-period">.</span></h2>
+              </div>
+              <button id="close-info-button" class="icon-button info-close" type="button" aria-label="Close game information">×</button>
+            </header>
+            <div class="info-dialog-content">
+              <section>
+                <h3>HOW TO PLAY</h3>
+                <p>Swipe left or right to switch lanes. Swipe up to jump over cyan barriers; swipe down to slide under green beams. Tap to jump. Collect glowing energy and avoid every obstacle.</p>
+              </section>
+              <section>
+                <h3>ABOUT</h3>
+                <p>Created by: <b style="color: azure;">Archimedes🚀</b><br>Development: AI-assisted💻<br>Project: CyberRun – 3D Endless Runner🏃‍♂️‍➡️</p>
+              </section>
+              <p class="info-pause-note">Your run is paused while this guide is open.</p>
+              <button id="fullscreen-toggle" class="secondary-button" type="button">ENTER FULL SCREEN</button>
+            </div>
+          </div>
+        </section>
         <div id="toast" class="toast" role="status" aria-live="polite"></div>
       </div>
 
@@ -90,7 +108,7 @@
           <div class="footer-heading">HOW TO RUN <span>///</span></div>
           <p><strong>SHIFT</strong> between three lanes. <strong>JUMP</strong> the light barriers. <strong>SLIDE</strong> under the beams. Grab energy, dodge everything, and see how far you get.</p>
           <p class="desktop-instructions">Arrow keys or <strong>A / D</strong> to move · <strong>W / ↑ / Space</strong> to jump · <strong>S / ↓</strong> to slide · <strong>Esc</strong> to pause.</p>
-          <p class="mobile-instructions">Use the on-screen arrows, swipe left/right to change lanes and up/down to jump or slide, or tap to jump. Sound begins after you start.</p>
+          <p class="mobile-instructions">Swipe left/right to change lanes and up/down to jump or slide, or tap to jump. Sound begins after you start.</p>
         </section>
         <section class="about">
           <div class="footer-heading">ABOUT <span>///</span></div>

@@ -7,6 +7,8 @@ export class Obstacles {
       shell: new THREE.MeshStandardMaterial({ color: 0x211c42, metalness: 0.72, roughness: 0.28, emissive: 0x29104a, emissiveIntensity: 1.2 }),
       cyan: new THREE.MeshStandardMaterial({ color: 0x54f6ff, emissive: 0x12d8ff, emissiveIntensity: 2.3, metalness: 0.3, roughness: 0.2 }),
       pink: new THREE.MeshStandardMaterial({ color: 0xff4cbb, emissive: 0xa20c71, emissiveIntensity: 1.8, metalness: 0.3, roughness: 0.25 }),
+      greenShell: new THREE.MeshStandardMaterial({ color: 0x1b6848, metalness: 0.6, roughness: 0.28, emissive: 0x0d592e, emissiveIntensity: 1.6 }),
+      green: new THREE.MeshStandardMaterial({ color: 0x7dffae, emissive: 0x25e96a, emissiveIntensity: 2.5, metalness: 0.3, roughness: 0.2 }),
       dark: new THREE.MeshStandardMaterial({ color: 0x101226, metalness: 0.6, roughness: 0.3 })
     };
     this.box = new THREE.BoxGeometry(1, 1, 1);
@@ -24,8 +26,8 @@ export class Obstacles {
     } else {
       this.addBox(group, 0.12, 1.46, 0.18, -0.61, 0.73, 0, this.materials.dark);
       this.addBox(group, 0.12, 1.46, 0.18, 0.61, 0.73, 0, this.materials.dark);
-      this.addBox(group, 1.4, 0.25, 0.38, 0, 1.48, 0, this.materials.shell);
-      this.addBox(group, 1.32, 0.07, 0.42, 0, 1.45, 0.04, this.materials.pink);
+      this.addBox(group, 1.4, 0.25, 0.38, 0, 1.48, 0, this.materials.greenShell);
+      this.addBox(group, 1.32, 0.07, 0.42, 0, 1.45, 0.04, this.materials.green);
       group.userData.kind = "beam";
     }
     group.userData.lane = lane;
